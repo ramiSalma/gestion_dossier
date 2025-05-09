@@ -13,20 +13,13 @@
 </head>
 <body class="bg-gray-200">
     @include('components.seachBar')
-    <div class="flex justify-center  h-screen">
-        
-        <div class=" p-10 mr-60 w-[1300px] bg-gray-200 "> 
+    <div class="flex justify-center min-h-screen pt-[120px]">
+        <div class="p-6 lg:p-10 mr-0 lg:mr-64 w-full max-w-7xl transition-all duration-300"> 
             @yield('content')
-            {{--  @if (!View::hasSection('content'))
-
-            <!-- Services Section -->
-            
-            @endif  --}}
         </div>
         <x-side-bar></x-side-bar>
-
-</div>
-{{--  @include('footer')  --}}
+    </div>
+    {{--  @include('footer')  --}}
 
 <script>
     const sidebar = document.getElementById('sidebar');
@@ -36,5 +29,44 @@
       sidebar.classList.toggle('translate-x-full');
     });
   </script>
+  <!-- Add this at the end of your body tag, before the closing </body> -->
+  <script>
+    // Global modal functions for liste creation
+    function openModal() {
+        // Check if we're on the listes index page
+        const modal = document.getElementById('addListeModal');
+        if (modal) {
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        } else {
+            // If not on the listes page, redirect to it
+            window.location.href = "{{ route('listes.index') }}";
+        }
+    }
+    
+    function closeModal() {
+        const modal = document.getElementById('addListeModal');
+        if (modal) {
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+    }
+    
+    // Initialize event listeners when document is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById('addListeModal');
+        if (modal) {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeModal();
+                }
+            });
+        }
+    });
+  </script>
 </body>
 </html>
+
+
